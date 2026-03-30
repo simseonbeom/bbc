@@ -12,7 +12,7 @@ function useIsMobile(bp = 768) {
   return mobile
 }
 
-const GRADES = ['전체', 'S급', 'A급', 'B급', 'C급', 'D급']
+const GRADES = ['전체', 'S급', 'A급', 'B급', 'C급', 'D급', '초심']
 const CLASSES = ['전체', '새벽반', '오전반', '저녁반']
 
 function FilterChip({ label, active, onClick, customActive }) {

@@ -353,11 +353,12 @@ export const PHOTOS = [
 ];
 
 export const GRADE_STYLES = {
-  'S급': 'bg-yellow-50 text-yellow-600 border border-yellow-300',
-  'A급': 'bg-red-50 text-red-500 border border-red-200',
-  'B급': 'bg-orange-50 text-orange-500 border border-orange-200',
-  'C급': 'bg-blue-50 text-blue-600 border border-blue-200',
-  'D급': 'bg-slate-50 text-slate-500 border border-slate-200',
+  'S급':  'bg-yellow-50 text-yellow-600 border border-yellow-300',
+  'A급':  'bg-red-50 text-red-500 border border-red-200',
+  'B급':  'bg-orange-50 text-orange-500 border border-orange-200',
+  'C급':  'bg-blue-50 text-blue-600 border border-blue-200',
+  'D급':  'bg-slate-50 text-slate-500 border border-slate-200',
+  '초심': 'bg-green-50 text-green-600 border border-green-200',
 };
 
 export const CLASS_META = {
