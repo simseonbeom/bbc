@@ -22,15 +22,24 @@ export default function App() {
 
   // 뒤로가기 / 앞으로가기 → hash 변경 감지해서 페이지 전환
   useEffect(() => {
-    const handler = () => setActivePage(getPageFromHash())
+    const handler = (e) => {
+      const page = e.state?.page ?? getPageFromHash()
+      setActivePage(VALID_PAGES.includes(page) ? page : 'home')
+    }
     window.addEventListener('popstate', handler)
-    return () => window.removeEventListener('popstate', handler)
+    window.addEventListener('hashchange', handler)
+    return () => {
+      window.removeEventListener('popstate', handler)
+      window.removeEventListener('hashchange', handler)
+    }
   }, [])
 
   // 페이지 이동 시 URL hash + 브라우저 히스토리에 기록
   function navigate(page) {
-    const hash = page === 'home' ? '' : `#${page}`
-    history.pushState({ page }, '', hash || location.pathname + location.search)
+    const url = page === 'home'
+      ? location.pathname + location.search
+      : `#${page}`
+    history.pushState({ page }, '', url)
     setActivePage(page)
   }
 
