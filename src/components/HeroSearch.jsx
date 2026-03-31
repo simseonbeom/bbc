@@ -37,7 +37,7 @@ export default function HeroSearch({ members, onSelectMember, onGoToMembers }) {
   }
 
   return (
-    <div ref={ref} className="relative max-w-lg mx-auto">
+    <div ref={ref} className="relative max-w-lg mx-auto z-50">
       <form
         onSubmit={handleSubmit}
         className="flex rounded-2xl overflow-hidden shadow-2xl shadow-black/25"

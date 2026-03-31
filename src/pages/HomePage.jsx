@@ -64,7 +64,7 @@ export default function HomePage({ members, notices, activities, photos, slides,
             BBC의 모든 것을 한 곳에서 확인하세요.
           </p>
 
-          <div className="hero-search">
+          <div className="hero-search relative z-50">
             <HeroSearch
               members={members}
               onSelectMember={onOpenMember}
