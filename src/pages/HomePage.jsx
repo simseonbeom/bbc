@@ -51,7 +51,7 @@ export default function HomePage({ members, notices, activities, photos, slides,
       <div className="bg-primary-dark relative overflow-hidden">
         <HeroSlider slides={slides} />
 
-        <div ref={heroRef} className="relative z-10 max-w-2xl mx-auto px-6 py-16 sm:py-20 text-center">
+        <div ref={heroRef} className="relative z-10 max-w-2xl mx-auto px-5 py-10 sm:py-20 text-center">
           <div className="hero-badge inline-flex items-center gap-2 bg-accent/15 border border-accent/30 text-accent text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-widest">
             🏸 BBC BADMINTON CLUB
           </div>
@@ -72,7 +72,7 @@ export default function HomePage({ members, notices, activities, photos, slides,
             />
           </div>
 
-          <div className="hero-stats flex justify-center gap-8 sm:gap-12 mt-10">
+          <div className="hero-stats flex justify-center gap-6 sm:gap-12 mt-8 sm:mt-10">
             {[
               { num: members.length,    label: '전체 회원' },
               { num: 7,                 label: '이번 달 활동' },
@@ -80,7 +80,7 @@ export default function HomePage({ members, notices, activities, photos, slides,
               { num: 5,                 label: '운영 연차' },
             ].map(({ num, label }) => (
               <div key={label} className="text-center">
-                <div className="text-accent font-black text-2xl sm:text-3xl leading-none">{num}</div>
+                <div className="text-accent font-black text-xl sm:text-3xl leading-none">{num}</div>
                 <div className="text-white/50 text-xs mt-1">{label}</div>
               </div>
             ))}

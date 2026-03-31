@@ -49,13 +49,13 @@ export default function HeroSearch({ members, onSelectMember, onGoToMembers }) {
             setOpen(true);
           }}
           onFocus={() => setOpen(true)}
-          placeholder="회원 이름 or 차량 번호를 검색하세요..."
-          className="flex-1 px-5 py-4 text-sm bg-white/95 text-slate-800 placeholder-slate-400 outline-none"
+          placeholder="이름 또는 차량 번호 검색..."
+          className="flex-1 px-4 py-3 sm:px-5 sm:py-4 text-sm bg-white/95 text-slate-800 placeholder-slate-400 outline-none min-w-0"
           autoComplete="off"
         />
         <button
           type="submit"
-          className="bg-accent hover:bg-accent-hover text-primary font-bold px-6 text-sm transition-colors duration-150 flex items-center gap-2 flex-shrink-0"
+          className="bg-accent hover:bg-accent-hover text-primary font-bold px-4 sm:px-6 text-sm transition-colors duration-150 flex items-center gap-1.5 sm:gap-2 flex-shrink-0"
         >
           🔍 검색
         </button>
@@ -84,9 +84,8 @@ export default function HeroSearch({ members, onSelectMember, onGoToMembers }) {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-bold text-slate-800 text-sm">{m.name}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">
-                      {m.grade} · 가입 {2026 - m.joinYear}년차 ·{" "}
-                      {classMeta?.emoji} {m.timeClass}
+                    <p className="text-xs text-slate-400 mt-0.5 truncate">
+                      {m.grade} · 가입 {2026 - m.joinYear}년차 · {classMeta?.emoji} {m.timeClass}
                     </p>
                   </div>
                   <span
