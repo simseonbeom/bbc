@@ -1,3 +1,5 @@
+import { useRef, useEffect } from 'react'
+import gsap from 'gsap'
 import HeroSearch from '../components/HeroSearch'
 import HeroSlider from '../components/HeroSlider'
 import NoticeList from '../components/NoticeList'
@@ -25,38 +27,57 @@ function SectionHeader({ title, onMore }) {
 
 export default function HomePage({ members, notices, activities, photos, slides, setActivePage, onOpenMember, onSearchMembers, onRefresh }) {
   const newMembers = members.filter((m) => m.isNew)
+  const heroRef = useRef(null)
+
+  useEffect(() => {
+    if (!heroRef.current) return
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+
+      tl.from('.hero-badge',  { opacity: 0, y: 18, duration: 0.55 })
+        .from('.hero-title',  { opacity: 0, y: 22, duration: 0.6  }, '-=0.3')
+        .from('.hero-desc',   { opacity: 0, y: 16, duration: 0.5  }, '-=0.3')
+        .from('.hero-search', { opacity: 0, y: 16, duration: 0.5  }, '-=0.25')
+        .from('.hero-stats',  { opacity: 0, y: 12, duration: 0.45 }, '-=0.2')
+    }, heroRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <div className="animate-fade-up">
+    <div>
       {/* ── HERO ── */}
       <div className="bg-primary-dark relative overflow-hidden">
         <HeroSlider slides={slides} />
 
-        <div className="relative z-10 max-w-2xl mx-auto px-6 py-16 sm:py-20 text-center">
-          <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/30 text-accent text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-widest">
+        <div ref={heroRef} className="relative z-10 max-w-2xl mx-auto px-6 py-16 sm:py-20 text-center">
+          <div className="hero-badge inline-flex items-center gap-2 bg-accent/15 border border-accent/30 text-accent text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-widest">
             🏸 BBC BADMINTON CLUB
           </div>
-          <h1 className="text-white font-black text-3xl sm:text-5xl leading-tight mb-3 tracking-tight">
+          <h1 className="hero-title text-white font-black text-3xl sm:text-5xl leading-tight mb-3 tracking-tight">
             함께 날아오르는<br />
             <span className="text-accent">BBC</span> 배드민턴 클럽
           </h1>
-          <p className="text-white/60 text-sm sm:text-base mb-8 leading-relaxed">
+          <p className="hero-desc text-white/60 text-sm sm:text-base mb-8 leading-relaxed">
             회원 정보 조회, 클럽 소식, 활동 사진까지<br className="hidden sm:block" />
             BBC의 모든 것을 한 곳에서 확인하세요.
           </p>
 
-          <HeroSearch
-            members={members}
-            onSelectMember={onOpenMember}
-            onGoToMembers={onSearchMembers}
-          />
+          <div className="hero-search">
+            <HeroSearch
+              members={members}
+              onSelectMember={onOpenMember}
+              onGoToMembers={onSearchMembers}
+            />
+          </div>
 
-          <div className="flex justify-center gap-8 sm:gap-12 mt-10">
+          <div className="hero-stats flex justify-center gap-8 sm:gap-12 mt-10">
             {[
-              { num: members.length, label: '전체 회원' },
-              { num: 7,              label: '이번 달 활동' },
+              { num: members.length,    label: '전체 회원' },
+              { num: 7,                 label: '이번 달 활동' },
               { num: newMembers.length, label: '신규 가입' },
-              { num: 5,              label: '운영 연차' },
+              { num: 5,                 label: '운영 연차' },
             ].map(({ num, label }) => (
               <div key={label} className="text-center">
                 <div className="text-accent font-black text-2xl sm:text-3xl leading-none">{num}</div>
@@ -68,8 +89,7 @@ export default function HomePage({ members, notices, activities, photos, slides,
       </div>
 
       {/* ── CONTENT ── */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-8">
-        {/* New members strip */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-8 animate-fade-up">
         {newMembers.length > 0 && (
           <div className="flex items-center gap-3 flex-wrap bg-accent/8 border border-accent/20 rounded-xl px-5 py-3">
             <span className="bg-accent/15 text-accent text-xs font-bold px-2.5 py-1 rounded-md whitespace-nowrap">
@@ -111,7 +131,6 @@ export default function HomePage({ members, notices, activities, photos, slides,
           <GalleryGrid photos={photos} limit={6} />
         </div>
 
-        {/* 새로고침 버튼 (시트 수정 후 반영) */}
         <div className="text-center">
           <button
             onClick={onRefresh}
