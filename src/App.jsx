@@ -18,6 +18,7 @@ export default function App() {
   const { data, loading, error, refresh } = useSheetData()
   const [activePage, setActivePage] = useState(getPageFromHash)
   const [pendingMemberId, setPendingMemberId] = useState(null)
+  const [pendingSearch, setPendingSearch] = useState('')
 
   // 뒤로가기 / 앞으로가기 → hash 변경 감지해서 페이지 전환
   useEffect(() => {
@@ -35,6 +36,13 @@ export default function App() {
 
   function openMember(id) {
     setPendingMemberId(id)
+    setPendingSearch('')
+    navigate('members')
+  }
+
+  function searchMembers(query) {
+    setPendingSearch(query)
+    setPendingMemberId(null)
     navigate('members')
   }
 
@@ -54,6 +62,7 @@ export default function App() {
           slides={data.slides}
           setActivePage={navigate}
           onOpenMember={openMember}
+          onSearchMembers={searchMembers}
           onRefresh={refresh}
         />
       )}
@@ -61,7 +70,8 @@ export default function App() {
         <MembersPage
           members={data.members}
           initialSelectedId={pendingMemberId}
-          onClearInitial={() => setPendingMemberId(null)}
+          initialSearch={pendingSearch}
+          onClearInitial={() => { setPendingMemberId(null); setPendingSearch('') }}
         />
       )}
       {activePage === 'gallery' && (

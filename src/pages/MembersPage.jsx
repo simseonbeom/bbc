@@ -75,11 +75,11 @@ function MemberRow({ member, isSelected, onClick }) {
   )
 }
 
-export default function MembersPage({ members, initialSelectedId, onClearInitial }) {
+export default function MembersPage({ members, initialSelectedId, initialSearch, onClearInitial }) {
   const [selectedId, setSelectedId] = useState(initialSelectedId ?? null)
   const [gradeFilter, setGradeFilter] = useState('전체')
   const [classFilter, setClassFilter] = useState('전체')
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState(initialSearch ?? '')
   const isMobile = useIsMobile()
 
   useEffect(() => {
@@ -91,6 +91,20 @@ export default function MembersPage({ members, initialSelectedId, onClearInitial
       onClearInitial?.()
     }
   }, [initialSelectedId])
+
+  // 검색어로 진입 시: 필터 초기화 + 결과가 1명이면 자동 선택
+  useEffect(() => {
+    if (!initialSearch) return
+    setGradeFilter('전체')
+    setClassFilter('전체')
+    setSearch(initialSearch)
+    const q = initialSearch.trim()
+    const results = members.filter((m) =>
+      m.name.includes(q) || m.car.replace(/\s/g, '').includes(q.replace(/\s/g, ''))
+    )
+    if (results.length === 1) setSelectedId(results[0].id)
+    onClearInitial?.()
+  }, [initialSearch])
 
   const filtered = members.filter((m) => {
     const q = search.trim()

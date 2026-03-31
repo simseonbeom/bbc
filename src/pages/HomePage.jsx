@@ -23,7 +23,7 @@ function SectionHeader({ title, onMore }) {
   )
 }
 
-export default function HomePage({ members, notices, activities, photos, slides, setActivePage, onOpenMember, onRefresh }) {
+export default function HomePage({ members, notices, activities, photos, slides, setActivePage, onOpenMember, onSearchMembers, onRefresh }) {
   const newMembers = members.filter((m) => m.isNew)
 
   return (
@@ -48,7 +48,7 @@ export default function HomePage({ members, notices, activities, photos, slides,
           <HeroSearch
             members={members}
             onSelectMember={onOpenMember}
-            onGoToMembers={() => setActivePage('members')}
+            onGoToMembers={onSearchMembers}
           />
 
           <div className="flex justify-center gap-8 sm:gap-12 mt-10">
