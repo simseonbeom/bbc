@@ -99,7 +99,7 @@ export default function HomePage({ members, notices, activities, photos, slides,
               {newMembers.map((m) => (
                 <button
                   key={m.id}
-                  onClick={() => onOpenMember(m.id)}
+                  onClick={() => onSearchMembers(m.name)}
                   className="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:border-accent hover:text-accent text-sm font-semibold px-3 py-1 rounded-full transition-all duration-150"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
