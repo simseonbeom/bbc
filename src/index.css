@@ -11,6 +11,10 @@
   * {
     -webkit-tap-highlight-color: transparent;
   }
+  /* iOS Safari 자동 확대 방지 — font-size 16px 미만 input 탭 시 줌인 현상 */
+  input, textarea, select {
+    font-size: max(16px, 1em);
+  }
 }
 
 @layer utilities {
